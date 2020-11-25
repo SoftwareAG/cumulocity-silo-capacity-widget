@@ -20,29 +20,34 @@ import {NgModule} from "@angular/core";
 
 // This will import css from the styles folder (Note: will be applied globally, not scoped to the module/components)
 import '~styles/index.css';
-import {ImageFillWidget} from "./image-fill-widget.component";
-import {ImageFillWidgetConfig} from "./image-fill-widget-config.component";
+import { ColorPickerComponent } from "./color-picker/color-picker-component";
+import { ColorPaletteComponent } from "./color-picker/color-palette/color-palette-component";
+import { ColorSliderComponent } from "./color-picker/color-slider/color-slider-component";
+import { HttpClientModule } from "@angular/common/http";
+import { SiloCapacityWidget } from "./silo-capacity-widget.component";
+import { SiloCapacityWidgetConfig } from "./silo-capacity-widget-config.component";
 
 @NgModule({
     imports: [
-        CoreModule
+        CoreModule,
+        HttpClientModule
     ],
-    declarations: [ImageFillWidget, ImageFillWidgetConfig],
-    entryComponents: [ImageFillWidget, ImageFillWidgetConfig],
+    declarations: [SiloCapacityWidget, SiloCapacityWidgetConfig, ColorPickerComponent, ColorSliderComponent, ColorPaletteComponent],
+    entryComponents: [SiloCapacityWidget, SiloCapacityWidgetConfig],
     providers: [
         // Connect the widget to Cumulocity via the HOOK_COMPONENT injection token
         {
             provide: HOOK_COMPONENTS,
             multi: true,
             useValue: {
-                id: 'global.presales.image.fill.widget',
-                label: 'Image Fill',
-                description: 'Displays realtime fill level',
-                component: ImageFillWidget,
-                configComponent: ImageFillWidgetConfig,
+                id: 'global.presales.silo.capacity.widget',
+                label: 'Silo Capacity',
+                description: 'Displays silo capacity fill levels, foreground image, background image and thresholds',
+                component: SiloCapacityWidget,
+                configComponent: SiloCapacityWidgetConfig,
                 previewImage: require("~styles/previewImage.png")
             }
         }
     ],
 })
-export class ImageFillWidgetModule {}
+export class SiloCapacityWidgetModule {}

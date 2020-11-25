@@ -1,0 +1,55 @@
+.showColorPicker {
+    display: block;
+}
+
+.hideColorPicker {
+    display: none;
+}
+
+.show-image-container {
+    padding-top: 15%;
+}
+
+.show-debug-container {
+    padding-bottom: 10px;
+}
+
+.show-image-container input,.show-debug-container input {
+    margin-top: 3px;
+}
+
+.show-image-container label, .show-debug-container label {
+    padding-left: 5px;
+    display: inline;
+}
+
+.configuration-panel {
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid grey;
+    margin-bottom: 10px;
+}
+
+.configuration-panel-title {
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.configuration-panel-sub-title {
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+
+.thresholds-container .configuration-panel-sub-title:nth-child(1) {
+    margin-top: -10px;
+}
+
+.calculate-fill-volume-container, .calculate-remaining-volume-container {
+    display: inline-flex;
+    padding-top: 5px;
+}
+
+.calculate-fill-volume-container label, .calculate-remaining-volume-container label {
+    padding-left: 5px;
+}

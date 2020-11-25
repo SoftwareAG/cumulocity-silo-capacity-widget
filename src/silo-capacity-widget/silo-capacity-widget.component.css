@@ -1,0 +1,146 @@
+body {
+    padding: 50px 0;
+    text-align: center;
+}
+
+input {
+    margin-bottom: 30px;
+}
+
+.cylinder-top {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 25px;
+    border-radius: 50px/12px;
+    background-color: rgba(160, 160, 160, 0.2);
+    content: '';
+}
+
+.cylinder {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100px;
+    height: 300px;
+    border-radius: 50px/25px;
+    background-color: rgba(160, 160, 160, 1.0);
+}
+
+.cylinder-bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    height: 25px;
+    border-radius: 50px/12px;
+    background-color: rgba(160, 160, 160, 0.4);
+    content: '';
+}
+
+.cylinder-fill-top {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 25px;
+    border-radius: 50px/12px;
+    background-color: rgba(160, 160, 160, 0.4);
+    content: '';
+}
+
+.cylinder-fill {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    height: 105px;
+    border-radius: 50px/12px;
+    background-color: rgba(245, 222, 179, 1);
+    /*transition: 0.5s linear;*/
+}
+
+.cylinder-fill-bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    height: 25px;
+    border-radius: 50px/12px;
+    background-color: rgba(160, 160, 160, 0.4);
+    content: '';
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.debug {
+    position: absolute;
+    left: 90%;
+    z-index: 1000;
+    top: 35px;
+}
+
+.debug input {
+    margin-bottom: 1px;
+    margin-right: 3px;
+}
+
+.image-container {
+    display: flex;
+}
+
+.image-container .foreground-image {
+    z-index: 3;
+}
+
+.image-container .background-image {
+    z-index: 1;
+}
+
+.background-image img {
+    position: absolute;
+}
+
+.measurement-container {
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 200px;
+}
+
+.measurement-label {
+    color: grey;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.measurement-value-unit-container {
+    color: rgb(176, 176, 176);
+    margin-bottom: 5px;
+}
+
+.measurement-value {
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+.measurement-unit {
+    font-size: 2.5em;
+    padding-bottom: 10px;
+}
+
+.measurement-value-debug-mode input{
+    margin-bottom: 0;
+}
+
+.threshold-normal {
+    color: green;
+}
+

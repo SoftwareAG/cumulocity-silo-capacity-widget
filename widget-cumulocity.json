@@ -1,0 +1,13 @@
+{
+  "name": "Silo capacity",
+  "contextPath": "silo-capacity-widget",
+  "key": "silo-capacity-widget-application-key",
+  "contentSecurityPolicy": "default-src 'self'",
+  "description": "Displays silo capacity fill levels, foreground image, background image and thresholds",
+  "icon": {
+    "class": "fa fw fa-database"
+  },
+  "manifest": {
+    "noAppSwitcher": true
+  }
+}
