@@ -1,0 +1,44 @@
+<input type="radio" name="water" id="r0" (click)="setMeasurementValue(0)"> <label for="r0">empty</label>
+
+<input type="radio" name="water" id="r1" (click)="setMeasurementValue(10)"> <label for="r1">10%</label>
+
+<input type="radio" name="water" id="r2" (click)="setMeasurementValue(20)"> <label for="r2">20%</label>
+
+<input type="radio" name="water" id="r3" (click)="setMeasurementValue(30)"> <label for="r3">30%</label>
+
+<input type="radio" name="water" id="r4" (click)="setMeasurementValue(40)"> <label for="r4">40%</label>
+
+<input type="radio" name="water" id="r5" (click)="setMeasurementValue(50)"> <label for="r5">50%</label>
+
+<input type="radio" name="water" id="r6" (click)="setMeasurementValue(60)"> <label for="r6">60%</label>
+
+<input type="radio" name="water" id="r7" (click)="setMeasurementValue(70)"> <label for="r7">70%</label>
+
+<input type="radio" name="water" id="r8" (click)="setMeasurementValue(80)"> <label for="r8">80%</label>
+
+<input type="radio" name="water" id="r9" (click)="setMeasurementValue(90)"> <label for="r9">90%</label>
+
+<input type="radio" name="water" id="r10" (click)="setMeasurementValue(100)"> <label for="r10">100%</label>
+
+<div class="row no-margin">
+    <div class="col-lg-12 description-container">
+        <h4>{{config.description}}</h4>
+    </div>
+</div>
+
+<div class="row no-margin">
+    <div class="col-lg-6">
+        <div class="cylinder">
+
+            <div class="water" [ngStyle]="{'height': (fillStyle | async).height, 'bottom': (fillStyle | async).bottom}"></div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="information-container">
+            <div class="vertical-center">
+                <h4>{{config.measurementLabel + ' ' + measurementValue + config.measurementUnit}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
