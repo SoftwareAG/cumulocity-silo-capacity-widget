@@ -71,7 +71,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                         </div>
                         <div class="col-lg-4">
                             <c8y-form-group>
-                                <label for="fillLevelUnit">Fill Level unit</label>
+                                <label for="fillLevelUnit">Fill level unit</label>
                                 <input type="text" class="form-control" id="fillLevelUnit" name="fillLevelUnit"
                                        placeholder="Set the fill level unit e.g. litres"
                                        [(ngModel)]="config.fillLevelUnit" required>
@@ -242,7 +242,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     <div class="row">
                         <div class="col-lg-6">
                             <c8y-form-group>
-                                <label for="foregroundImageFile">image file (png, jpeg, jpg)</label>
+                                <label for="foregroundImageFile">Image file (png, jpeg, jpg)</label>
                                 <input type="file" class="form-control" id="foregroundImageFile"
                                        name="foregroundImageFile"
                                        alt="Foreground image file"
@@ -316,7 +316,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     <div class="row">
                         <div class="col-lg-6">
                             <c8y-form-group>
-                                <label for="backgroundImageFile">image file (png, jpeg, jpg)</label>
+                                <label for="backgroundImageFile">Image file (png, jpeg, jpg)</label>
                                 <input type="file" class="form-control" id="backgroundImageFile"
                                        name="backgroundImageFile"
                                        alt="Background image file"
@@ -377,13 +377,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                 </div>
             </div>
 
-            <!-- Thresholds configuration -->
+            <!-- Threshold configuration -->
 
             <div class="row">
                 <div class="configuration-panel thresholds-container">
                     <div class="row">
                         <div class="col-lg-12 configuration-panel-title">
-                            Thresholds configuration (optional)
+                            Threshold configuration (optional)
                         </div>
                     </div>
 
