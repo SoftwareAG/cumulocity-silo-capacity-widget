@@ -388,6 +388,16 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     </div>
 
                     <div class="row">
+                        <div class="col-lg-offset-9 col-lg-3">
+                            <div class="enable-thresholds-container">
+                                <input type="checkbox" id="enableThresholds" name="enableThresholds"
+                                       [(ngModel)]="config.enableThresholds">
+                                <label class="enableThresholds-label" for="enableThresholds">Enable thresholds</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-lg-12 configuration-panel-sub-title">
                             High threshold range
                         </div>
@@ -399,7 +409,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                 <input type="number" class="form-control" id="thresholdHighRangeMin"
                                        name="thresholdHighRangeMin"
                                        placeholder="Set the high range minimum value"
-                                       [(ngModel)]="config.thresholdHighRangeMin">
+                                       [ngModel]="config.thresholdHighRangeMin"
+                                        (change)="setThresholdHighRangeMin($event)">
                             </c8y-form-group>
                         </div>
                         <div class="col-lg-4">
@@ -408,7 +419,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                 <input type="number" class="form-control" id="thresholdHighRangeMax"
                                        name="thresholdHighRangeMax"
                                        placeholder="Set the high range maximum value"
-                                       [(ngModel)]="config.thresholdHighRangeMax">
+                                       [ngModel]="config.thresholdHighRangeMax"
+                                       (change)="setThresholdHighRangeMax($event)">
                             </c8y-form-group>
                         </div>
                         <div class="col-lg-4">
@@ -641,6 +653,7 @@ export class SiloCapacityWidgetConfig implements OnInit {
 
     public setThresholdHighColor(value: string) {
         this.config.thresholdHighColor = value;
+        this.config.enableThresholds = true;
     }
 
     public openThresholdMediumColorPicker() {
@@ -653,6 +666,7 @@ export class SiloCapacityWidgetConfig implements OnInit {
 
     public setThresholdMediumColor(value: string) {
         this.config.thresholdMediumColor = value;
+        this.config.enableThresholds = true;
     }
 
     // Foreground image configuration
@@ -733,5 +747,17 @@ export class SiloCapacityWidgetConfig implements OnInit {
     public setBackgroundImageTopMargin($event: Event) {
         this.config.backgroundImageTopMargin = Number(($event.target as HTMLInputElement).value);
     }
+
+    public setThresholdHighRangeMin($event: Event) {
+        this.config.thresholdHighRangeMin = Number(($event.target as HTMLInputElement).value);
+        this.config.enableThresholds = true;
+    }
+
+    public setThresholdHighRangeMax($event: Event) {
+        this.config.thresholdHighRangeMax = Number(($event.target as HTMLInputElement).value);
+        this.config.enableThresholds = true;
+    }
+
+
 
 }

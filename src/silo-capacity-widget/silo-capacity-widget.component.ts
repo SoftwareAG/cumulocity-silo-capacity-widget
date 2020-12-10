@@ -253,6 +253,10 @@ export class SiloCapacityWidget implements OnInit, OnDestroy {
           }
         }
 
+        if (this.config.enableThresholds === undefined) {
+          this.config.enableThresholds = false;
+        }
+
         const borderRadius = this.config.cylinderWidth + 'px/' + this.config.cylinderTiltHeight + 'px';
         this.cylinderStyle.next({
           tiltHeight: this.config.cylinderTiltHeight + 'px',
@@ -323,8 +327,10 @@ export class SiloCapacityWidget implements OnInit, OnDestroy {
   }
 
   private getCylinderFillColor(): string {
-    let cylinderFillColour: string = this.getThresholdColor();
-
+    let cylinderFillColour = '';
+    if(this.config.enableThresholds) {
+      cylinderFillColour = this.getThresholdColor();
+    }
     if (cylinderFillColour === '') {
       cylinderFillColour = this.config.cylinderFillColor;
     }
@@ -403,7 +409,10 @@ export class SiloCapacityWidget implements OnInit, OnDestroy {
   }
 
   public setThresholdColorStyle(): object {
-    let thresholdColor = this.getThresholdColor();
+    let thresholdColor = '';
+    if (this.config.enableThresholds) {
+      thresholdColor = this.getThresholdColor();
+    }
 
     if (thresholdColor === '') {
       thresholdColor = 'green'

@@ -38,18 +38,21 @@ export interface WidgetConfig {
     fillOrRemainingCalculation: string;
     currentFillPercentageLabel: string;
 
+    showForegroundImage: boolean;
     foregroundImageText: string;
     foregroundImageHeight: number;
     foregroundImageWidth: number;
     foregroundImageTopMargin: number;
     foregroundImageLeftMargin: number;
 
+    showBackgroundImage: boolean;
     backgroundImageText: string;
     backgroundImageHeight: number;
     backgroundImageWidth: number;
     backgroundImageTopMargin: number;
     backgroundImageLeftMargin: number;
 
+    enableThresholds: boolean;
     thresholdHighRangeMin: number;
     thresholdHighRangeMax: number;
     thresholdHighColor: string;
@@ -58,7 +61,5 @@ export interface WidgetConfig {
     thresholdMediumRangeMax: number;
     thresholdMediumColor: string;
 
-    showForegroundImage: boolean;
-    showBackgroundImage: boolean;
     debugMode: boolean;
 }
