@@ -91,7 +91,12 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                         <div class="col-lg-8">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <label for="fillOrRemainingCalculation">Fill or remaining calculation</label>
+                                    <label class="label-with-help" for="fillOrRemainingCalculation">Fill or remaining calculation</label>
+                                    <span class="help-icon">
+                                        <img src="{{CONST_HELP_IMAGE_FILE}}"
+                                             alt="help tooltip"
+                                             title="Calculate the volume filled or the volume remaining based on the received measurement value.">
+                                    </span>
                                 </div>
                             </div>
                             <div class="row">
@@ -140,7 +145,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                             <c8y-form-group>
                                 <label for="cylinderHeight">Height (px)</label>
                                 <input type="number" class="form-control" id="cylinderHeight" name="cylinderHeight"
@@ -148,7 +153,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                        (change)="setCylinderHeight($event)" required>
                             </c8y-form-group>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                             <c8y-form-group>
                                 <label for="cylinderWidth">Width (px)</label>
                                 <input type="number" class="form-control" id="cylinderWidth" name="cylinderWidth"
@@ -156,7 +161,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                        (change)="setCylinderWidth($event)" required>
                             </c8y-form-group>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                             <c8y-form-group>
                                 <label for="cylinderLeftMargin">Left margin (px)</label>
                                 <input type="number" class="form-control" id="cylinderLeftMargin"
@@ -166,7 +171,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                        (change)="setCylinderLeftMargin($event)" required>
                             </c8y-form-group>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                             <c8y-form-group>
                                 <label for="cylinderTopMargin">Top margin (px)</label>
                                 <input type="number" class="form-control" id="cylinderTopMargin"
@@ -176,9 +181,16 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                        (change)="setCylinderTopMargin($event)" required>
                             </c8y-form-group>
                         </div>
-                        <div class="col-lg-2">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
                             <c8y-form-group>
-                                <label for="cylinderTiltHeight">Tilt height (px)</label>
+                                <label class="label-with-help" for="cylinderTiltHeight">Tilt height (px)</label>
+                                <span class="help-icon">
+                                    <img src="{{CONST_HELP_IMAGE_FILE}}"
+                                         alt="help tooltip"
+                                         title="This attribute tilts the angle of the cylinder.">
+                                </span>
                                 <input type="number" min="1" max="50" class="form-control" id="cylinderTiltHeight" name="cylinderTiltHeight"
                                        placeholder="Set the tilt height of your cylinder" [ngModel]="config.cylinderTiltHeight"
                                        (change)="setCylinderTiltHeight($event)" required>
@@ -464,7 +476,15 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                 <div class="configuration-panel">
                     <div class="row">
                         <div class="col-lg-12 configuration-panel-title">
-                            Development (optional)
+                            <div class="label-with-help">
+                                Development (optional)
+                            </div>
+                            <span class="help-icon">
+                                    <img src="{{CONST_HELP_IMAGE_FILE}}"
+                                         alt="help tooltip"
+                                         title="Enable debug mode to display a value spinner which can be used to increase/decrease the capacity fill to check the height of the cylinder matches your foreground and background images.\n\nHold down the Ctrl key and your left mouse button to reposition the foreground and background images over the cylinder. To save the image location changes, edit the widget and click the save button.">
+                                </span>
+
                         </div>
                     </div>
                     <div class="row">
@@ -496,6 +516,8 @@ export class SiloCapacityWidgetConfig implements OnInit {
   public thresholdMediumColorPickerClosed = true;
 
   public supportedSeries: string[];
+
+  public CONST_HELP_IMAGE_FILE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAADdgAAA3YBfdWCzAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAATzSURBVGiB7VlrTBxVFP7usLu8kUeBLSAFipUqFg1Qq5EgaCU2/DAxpYqJCVExmNC0Km1jolmbxgSCKbWoITG+oq1Ba6M1mvQHqxJTEyS0aEBiSyvIY2F5dl32Mczxh1WZndmdubOoTeD7d88995zvzH2cM/cC61jH2gZbFSs2m2B1l5VIEMoYUArgFgBZAa5GARogRj0CE7ono77uhc0mhes6rAAyD9iz/MQamUCPgZDJOXwUhA9FUWqfOXrfmFEOhgLIPtSd5JXEwwCeAhBp1Pk1eMDQ4fXCNt9WMc87mDsA68GuGiLWDiCVd6wGHAR6Zqql8lOeQfoDqP/BnJ7oageonpsaB4jw+lQs9sFWIerR1xVAqs0eJyyxUyB6IDx6+kDAV0zy7Xa0Vv2upStoKeQ3fhkpuPHFf0UeABjwIATLmVttnRYtXc0AXFFRRwGUrwozPlQ4l1JbtJRCLqH0JvseMHy0epz4QaCHQ23soAFsOHA2I4JZBkGUoNcZY8CO3CRUF1lRdGM8Yi0mAIBPlHBx2o2uwWmc6XfAJ/LkLzYLybvV0Vo1pdZrCjYsAubDPOQTos048lAB7t6cpNqfEmfBnbmJqN2RiYOfDOLilOb+vAZKZoLlZQANar2qM2A9ZM8hCb8gRIArYRIYOh7fhqKsG3RRcrp8qOnoxeKSX5c+AH8EE/PHm3eOBHaobmJaxtPQSR4AqovSFeRFidBzZR7nhufg9i/L+jbEWVC7navyMC+TSTX/KAOw2U1gqOOxvqswTdb2ixLq37+Ahg/60XjiR9S8qfza5VuSeVwAYHXY3RkRKFUEkLYkbQeQzmM6LzVW1u4amkH/b4t/tycXPbAPzch0spKjeVwAoAxrbkpxoFQRACOhgtMyEmPMsvbo7JJCx+WVVwbE6wQAoOSmts5LeM2WHPlWU6d4k3yPXJ7WewqtAENpoEhtE9/Ebzk0HinNRIE1Xib7/LyD2w4RtgTKVAJgG7kth0B1UTr278yTyfpGFnC6b8KIOQU3tSUUZ8SyGmpKMtBUlQ+2Ittcdrrx3McDkIxtgvhAgcoM0Kr8J2/LSsDzVZtl5H+dcWPvyZ94Epgm1JbQ1dUw3HBvDoQV7CcWPHjyvQuYWPCEY1bBTW0GDC3OlYiLNOGObPmp8+JnQ5hzh/3lFdyUeYDh53C9bEqJgUn45+uPz3twfmQhXLOACjdFAEToC9dPQpQ841+adodrEgDACL2BMsUpREyyM9L8UQuJc8NzupIbPyR7oETBdCq6+3uAKcrW/x9seLKlsidQqlKN2iQQnQjHlUlgaCjPwbt1t+N47W3YulFxfBsAnQSYInuo/w+Yl9sAKCsyndhTmoknyrJRmJmAu/KS8NqjhYgxKyphHrgiltGm1qEawNQr9zuI8LZRb8U5ibJ2UowZeWmxQbR14a3xVyucah1Bd6voWXoBKueuHozNySdPlMh4AmMYW4b5pWDdQQOYPb5rEYT9Rny+890oBib+TJp+UULr2UuYcfmMmAIR7XW23BO0OtCse6xNXW8QY6o3AlrYEGfBVa8Ir9/gMwDDMUdzxb5QKpoH/uQVZyMYThvx73T5DJNnDKcc0d88q6mnx9j1fLm7Nq7XV+J6e+DgLnommys7IwXTzQDaAXh5x6vAA4ZjXh8KeMkDa/WRT4Hgz6x/3fTO/VvPrOtYx1rHHxm4yOkGvwZ0AAAAAElFTkSuQmCC";
 
   constructor(
       private http: HttpClient) {

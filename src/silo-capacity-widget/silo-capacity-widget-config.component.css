@@ -53,3 +53,16 @@
 .calculate-fill-volume-container label, .calculate-remaining-volume-container label {
     padding-left: 5px;
 }
+
+.help-icon {
+    margin-left:5px;
+}
+
+.help-icon > img {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.label-with-help {
+    display: inline;
+}

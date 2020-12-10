@@ -16,8 +16,8 @@ import { SensorPhoneModule } from '@c8y/ngx-components/sensor-phone';
 import { ColorPickerComponent } from "./src/silo-capacity-widget/color-picker/color-picker-component";
 import { ColorSliderComponent } from "./src/silo-capacity-widget/color-picker/color-slider/color-slider-component";
 import { ColorPaletteComponent } from "./src/silo-capacity-widget/color-picker/color-palette/color-palette-component";
-import {SiloCapacityWidget} from "./src/silo-capacity-widget/silo-capacity-widget.component";
-import {SiloCapacityWidgetConfig} from "./src/silo-capacity-widget/silo-capacity-widget-config.component";
+import { SiloCapacityWidget } from "./src/silo-capacity-widget/silo-capacity-widget.component";
+import { SiloCapacityWidgetConfig } from "./src/silo-capacity-widget/silo-capacity-widget-config.component";
 
 @NgModule({
   imports: [

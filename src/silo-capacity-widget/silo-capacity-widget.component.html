@@ -44,11 +44,11 @@
             <p class="measurement-label">{{config.currentFillPercentageLabel}}</p>
             <p class="measurement-value-unit-container">
                 <ng-container *ngIf="!config.debugMode">
-                    <span class="measurement-value" [ngStyle]="setThresholdColorStyle()">{{currentFillPercentage | number:'1.2-2' }}</span>%
+                    <span class="measurement-value" [ngStyle]="setThresholdColorStyle()">{{currentFillPercentage | number:'1.2-2' }}{{'%'}}</span>
                 </ng-container>
                 <ng-container *ngIf="config.debugMode">
                 <span class="measurement-value-debug-mode">
-                    <input type="number" min="0" max="100" step="25" value="25" (change)="setCurrentFillPercentage($event.target.value)"><label>{{' %'}}</label>
+                    <input type="number" min="0" max="100" step="25" value="25" (change)="setCurrentFillPercentage($event.target.value)"><label>{{'%'}}</label>
                 </span>
                 </ng-container>
             </p>
