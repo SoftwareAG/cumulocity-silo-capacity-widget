@@ -1,38 +1,40 @@
 <div class="row no-margin">
     <div class="col-lg-6">
-        <div style="position: relative; left: 0; top: 0;">
-            <ng-container *ngIf="config.showForegroundImage === true && config.foregroundImageHeight && config.foregroundImageWidth">
-                <div class="image-container">
-                    <div class="foreground-image">
-                        <img #foregroundImagePlaceHolder [src]="getForegroundImage()" [ngStyle]="{'width': config.foregroundImageWidth.toString() + 'px', 'height': config.foregroundImageHeight.toString() + 'px', 'margin-left': config.foregroundImageLeftMargin.toString() + 'px', 'margin-top': config.foregroundImageTopMargin.toString() + 'px'}" alt="Foreground image"/>
+        <div class="images-container" [ngStyle]="(measurementContainerStyle | async)">
+            <div style="position: relative; left: 0; top: 0;">
+                <ng-container *ngIf="config.showForegroundImage === true && config.foregroundImageHeight && config.foregroundImageWidth">
+                    <div class="image-container">
+                        <div class="foreground-image">
+                            <img #foregroundImagePlaceHolder [src]="getForegroundImage()" [ngStyle]="{'width': config.foregroundImageWidth.toString() + 'px', 'height': config.foregroundImageHeight.toString() + 'px', 'margin-left': config.foregroundImageLeftMargin.toString() + 'px', 'margin-top': config.foregroundImageTopMargin.toString() + 'px'}" alt="Foreground image"/>
+                        </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
 
-            <ng-container *ngIf="config.showBackgroundImage === true && config.backgroundImageHeight && config.backgroundImageWidth">
-                <div class="image-container">
-                    <div class="background-image">
-                        <img #backgroundImagePlaceHolder [src]="getBackgroundImage()" [ngStyle]="{'height': config.backgroundImageHeight.toString() + 'px', 'left': config.backgroundImageLeftMargin.toString() + 'px', 'top': config.backgroundImageTopMargin.toString() + 'px'}" alt="Background image"/>
+                <ng-container *ngIf="config.showBackgroundImage === true && config.backgroundImageHeight && config.backgroundImageWidth">
+                    <div class="image-container">
+                        <div class="background-image">
+                            <img #backgroundImagePlaceHolder [src]="getBackgroundImage()" [ngStyle]="{'height': config.backgroundImageHeight.toString() + 'px', 'left': config.backgroundImageLeftMargin.toString() + 'px', 'top': config.backgroundImageTopMargin.toString() + 'px'}" alt="Background image"/>
+                        </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
 
-            <ng-container *ngIf="(cylinderStyle | async) as cylinderStyle">
-                <div class="cylinder" [ngStyle]="{'width': cylinderStyle.width, 'height': cylinderStyle.height, 'border-radius': cylinderStyle.borderRadius, 'margin-left': cylinderStyle.fillContainerLeftMargin, 'margin-top': cylinderStyle.fillContainerTopMargin, 'background-color': cylinderStyle.backgroundColor}">
-                    <div *ngIf="(fillStyle | async) as fillStyle">
-                        <ng-container *ngIf="!config.showForegroundImage">
-                            <div class="cylinder-top" [ngStyle]="{'height': cylinderStyle.tiltHeight, 'width': cylinderStyle.width, 'border-radius': cylinderStyle.borderRadius}"></div>
-                        </ng-container>
-                        <div class="cylinder-fill-top" [ngStyle]="{'height': cylinderStyle.tiltHeight, 'width': cylinderStyle.width, 'border-radius': cylinderStyle.borderRadius, 'top': fillStyle.top}"></div>
-                        <div class="cylinder-fill" [ngStyle]="{'width': cylinderStyle.width, 'height': fillStyle.height, 'bottom': fillStyle.bottom, 'background-color': fillStyle.backgroundColor, 'border-radius': fillStyle.borderRadius}"></div>
-                        <div class="cylinder-bottom" [ngStyle]="{'height': cylinderStyle.tiltHeight, 'width': cylinderStyle.width, 'border-radius': cylinderStyle.borderRadius}"></div>
+                <ng-container *ngIf="(cylinderStyle | async) as cylinderStyle">
+                    <div class="cylinder" [ngStyle]="{'width': cylinderStyle.width, 'height': cylinderStyle.height, 'border-radius': cylinderStyle.borderRadius, 'margin-left': cylinderStyle.fillContainerLeftMargin, 'margin-top': cylinderStyle.fillContainerTopMargin, 'background-color': cylinderStyle.backgroundColor}">
+                        <div *ngIf="(fillStyle | async) as fillStyle">
+                            <ng-container *ngIf="!config.showForegroundImage">
+                                <div class="cylinder-top" [ngStyle]="{'height': cylinderStyle.tiltHeight, 'width': cylinderStyle.width, 'border-radius': cylinderStyle.borderRadius}"></div>
+                            </ng-container>
+                            <div class="cylinder-fill-top" [ngStyle]="{'height': cylinderStyle.tiltHeight, 'width': cylinderStyle.width, 'border-radius': cylinderStyle.borderRadius, 'top': fillStyle.top}"></div>
+                            <div class="cylinder-fill" [ngStyle]="{'width': cylinderStyle.width, 'height': fillStyle.height, 'bottom': fillStyle.bottom, 'background-color': fillStyle.backgroundColor, 'border-radius': fillStyle.borderRadius}"></div>
+                            <div class="cylinder-bottom" [ngStyle]="{'height': cylinderStyle.tiltHeight, 'width': cylinderStyle.width, 'border-radius': cylinderStyle.borderRadius}"></div>
+                        </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
+            </div>
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="measurement-container" [ngStyle]="(measurementContainerHeight | async)">
+        <div class="measurement-container" [ngStyle]="(measurementContainerStyle | async)">
             <ng-container *ngIf="config.fillLevelMaximumLabel.length > 0">
                 <p class="measurement-label">{{config.fillLevelMaximumLabel}}</p>
                 <p class="measurement-value-unit-container">

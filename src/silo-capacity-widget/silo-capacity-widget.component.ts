@@ -15,7 +15,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
  */
-import { Component, DoCheck, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { WidgetConfig } from './i-widget-config';
 import * as _ from 'lodash'
 import { Realtime, MeasurementService } from '@c8y/ngx-components/api';
@@ -26,7 +26,7 @@ import { BehaviorSubject } from "rxjs";
   templateUrl: './silo-capacity-widget.component.html',
   styleUrls: ['./silo-capacity-widget.component.css']
 })
-export class SiloCapacityWidget implements OnInit, OnDestroy, DoCheck {
+export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoCheck {
   
   @Input() public config: WidgetConfig;
 
@@ -54,8 +54,15 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, DoCheck {
 
   private displayedAlert = false;
 
+  public imageContainerMarginTop = 0;
+
+  private cdkDropListContainer;
   private cdkDropListContainerHeight = 200;
-  public measurementContainerHeight = new BehaviorSubject<{height: string}>({height: this.cdkDropListContainerHeight + 'px'});
+  private measurementContainerHeight = 200;
+  private measurementContainerMarginTop = 0;
+  private imagesContainerMarginTop = 0;
+  public measurementContainerStyle = new BehaviorSubject<{height: string, 'margin-top': string}>({height: this.measurementContainerHeight + 'px', 'margin-top': this.measurementContainerMarginTop + 'px'});
+  public imagesContainerStyle = new BehaviorSubject<{'margin-top': string}>({'margin-top': this.imagesContainerMarginTop + 'px'});
 
   // This ViewChild is only used when in debug mode to allow the user to move the foreground and backgrounds image around
   @ViewChild('foregroundImagePlaceHolder', {read: ElementRef, static: false}) set foregroundImage(foregroundImage: ElementRef) {
@@ -158,14 +165,38 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, DoCheck {
     });
   }
 
-  public ngDoCheck() {
-    const cdkDropListContainer = this.elRef.nativeElement.parentNode.parentNode.parentNode.parentNode;
-    this.cdkDropListContainerHeight = cdkDropListContainer.offsetHeight;
-    const measurementContainerStyleHeight = {height: (this.cdkDropListContainerHeight / 1.545) + 'px'};
-    if (measurementContainerStyleHeight.height != this.measurementContainerHeight.getValue().height) {
-      this.measurementContainerHeight.next(measurementContainerStyleHeight);
+  public ngAfterViewInit() {
+    this.cdkDropListContainer = this.elRef.nativeElement.parentNode.parentNode.parentNode.parentNode;
+    // Check to see if the widget title is visible
+    const c8yDashboardChildTitle = this.cdkDropListContainer.querySelector('c8y-dashboard-child-title');
+    console.log(c8yDashboardChildTitle);
+    const widgetTitleDisplayValue: string = window.getComputedStyle(c8yDashboardChildTitle).getPropertyValue('display');
+    if(widgetTitleDisplayValue !== undefined && widgetTitleDisplayValue !== null && widgetTitleDisplayValue === 'none') {
+      console.log('Title is hidden');
+      this.measurementContainerMarginTop = 20;
+      this.imagesContainerMarginTop = 20;
+      this.measurementContainerStyle.next({height: this.measurementContainerHeight + 'px', 'margin-top': this.measurementContainerMarginTop + 'px'});
+      this.imagesContainerStyle.next({'margin-top': this.imagesContainerMarginTop + 'px'});
+    } else {
+      console.log('Title is visible');
+      this.measurementContainerMarginTop = 0;
+      this.imagesContainerMarginTop = 0;
+      this.measurementContainerStyle.next({height: this.measurementContainerHeight + 'px', 'margin-top': this.measurementContainerMarginTop + 'px'});
+      this.imagesContainerStyle.next({'margin-top': this.imagesContainerMarginTop + 'px'});
     }
   }
+
+  public ngDoCheck() {
+    if (this.cdkDropListContainer) {
+      this.cdkDropListContainerHeight = this.cdkDropListContainer.offsetHeight;
+      this.measurementContainerHeight = this.cdkDropListContainerHeight / 1.545;
+      if (this.measurementContainerHeight + 'px' != this.measurementContainerStyle.getValue().height) {
+        this.measurementContainerStyle.next({height: this.measurementContainerHeight + 'px', 'margin-top': this.measurementContainerMarginTop + 'px'});
+      }
+
+    }
+  }
+
 
   private saveForegroundAndBackgroundImageLocations() {
     if (this.ctrlKeyPressed) {
@@ -402,10 +433,10 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, DoCheck {
       let fillHeight = 0;
 
       if (this.config.fillOrRemainingCalculation === 'calculateRemainingVolume') {
-        fillHeight = ((this.config.cylinderHeight - 25) * currentFillPercentage / 100) + 25;
+        fillHeight = ((this.config.cylinderHeight) * currentFillPercentage / 100);
       }
       if (this.config.fillOrRemainingCalculation === 'calculateFillVolume') {
-        fillHeight = ((this.config.cylinderHeight - 25) - (this.config.cylinderHeight - 25) * currentFillPercentage / 100) + 25;
+        fillHeight = ((this.config.cylinderHeight) - (this.config.cylinderHeight) * currentFillPercentage / 100);
       }
 
       const fillHeightpx = fillHeight + 'px';
