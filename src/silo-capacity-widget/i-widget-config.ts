@@ -40,15 +40,15 @@ export interface WidgetConfig {
 
     showForegroundImage: boolean;
     foregroundImageText: string;
+    foregroundImageSize: number;
     foregroundImageHeight: number;
-    foregroundImageWidth: number;
     foregroundImageTopMargin: number;
     foregroundImageLeftMargin: number;
 
     showBackgroundImage: boolean;
     backgroundImageText: string;
+    backgroundImageSize: number;
     backgroundImageHeight: number;
-    backgroundImageWidth: number;
     backgroundImageTopMargin: number;
     backgroundImageLeftMargin: number;
 

@@ -262,20 +262,12 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     <div class="row">
                         <div class="col-lg-3">
                             <c8y-form-group>
-                                <label for="foregroundImageHeight">Height (px)</label>
-                                <input type="number" class="form-control" id="foregroundImageHeight"
-                                       name="foregroundImageHeight"
-                                       placeholder="Set the height of your foreground image"
-                                       [(ngModel)]="config.foregroundImageHeight">
-                            </c8y-form-group>
-                        </div>
-                        <div class="col-lg-3">
-                            <c8y-form-group>
-                                <label for="foregroundImageWidth">Width (px)</label>
-                                <input type="number" class="form-control" id="foregroundImageWidth"
-                                       name="foregroundImageWidth"
-                                       placeholder="Set the width of your foreground image"
-                                       [(ngModel)]="config.foregroundImageWidth">
+                                <label for="foregroundImageSize">Size (%)</label>
+                                <input type="number" class="form-control" id="foregroundImageSize"
+                                       name="foregroundImageSize"
+                                       placeholder="Set the size of your foreground image"
+                                       [ngModel]="config.foregroundImageSize"
+                                       (change)="setForegroundImageSize($event)">
                             </c8y-form-group>
                         </div>
                         <div class="col-lg-3">
@@ -335,22 +327,12 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     <div class="row">
                         <div class="col-lg-3">
                             <c8y-form-group>
-                                <label for="backgroundImageHeight">Height (px)</label>
-                                <input type="number" class="form-control" id="backgroundImageHeight"
-                                       name="backgroundImageHeight"
-                                       placeholder="Set the height of your background image"
-                                       [ngModel]="config.backgroundImageHeight"
-                                       (change)="setBackgroundImageHeight($event)">
-                            </c8y-form-group>
-                        </div>
-                        <div class="col-lg-3">
-                            <c8y-form-group>
-                                <label for="backgroundImageWidth">Width (px)</label>
-                                <input type="number" class="form-control" id="backgroundImageWidth"
-                                       name="backgroundImageWidth"
-                                       placeholder="Set the width of your background image"
-                                       [ngModel]="config.backgroundImageWidth"
-                                       (change)="setBackgroundImageWidth($event)">
+                                <label for="backgroundImageSize">Size (%)</label>
+                                <input type="number" class="form-control" id="backgroundImageSize"
+                                       name="backgroundImageSize"
+                                       placeholder="Set the size of your background image"
+                                       [ngModel]="config.backgroundImageSize"
+                                       (change)="setBackgroundImageSize($event)">
                             </c8y-form-group>
                         </div>
                         <div class="col-lg-3">
@@ -682,6 +664,13 @@ export class SiloCapacityWidgetConfig implements OnInit {
             _.set(this.config, 'foregroundImageText', this.foregroundImageFileAsString);
             // Set the 'showForegroundImage' flag as we have added a foreground image
             this.config.showForegroundImage = true;
+
+            // Get and store the foreground file height
+            const foregroundImage = new Image();
+            foregroundImage.src = this.foregroundImageFileAsString;
+            foregroundImage.onload = () => {
+                this.config.foregroundImageHeight = foregroundImage.height;
+            }
           };
         } else {
           console.error('Image file can only be .png, .jpeg, or .jpg');         
@@ -689,6 +678,17 @@ export class SiloCapacityWidgetConfig implements OnInit {
       } else {
         console.error('Image file must be either .png, .jpeg, or .jpg');
       }
+    }
+
+    public setForegroundImageSize($event: Event) {
+        let size: number = Number(($event.target as HTMLInputElement).value);
+        if (size >= 100) {
+            size = 100;
+        }
+        if (size < 0) {
+            size = 0;
+        }
+        this.config.foregroundImageSize = size;
     }
 
     public setForegroundImageLeftMargin($event: Event) {
@@ -713,6 +713,13 @@ export class SiloCapacityWidgetConfig implements OnInit {
                     _.set(this.config, 'backgroundImageText', this.backgroundImageFileAsString);
                     // Set the 'showBackgroundImage' flag as we have added a background image
                     this.config.showBackgroundImage = true;
+
+                    // Get and store the background image file height
+                    const backgroundImage = new Image();
+                    backgroundImage.src = this.backgroundImageFileAsString;
+                    backgroundImage.onload = () => {
+                        this.config.backgroundImageHeight = backgroundImage.height;
+                    }
                 };
             } else {
                 console.error('Background image file can only be .png, .jpeg, or .jpg');
@@ -722,22 +729,15 @@ export class SiloCapacityWidgetConfig implements OnInit {
         }
     }
 
-    public setBackgroundImageHeight($event: Event) {
-        const height: number = Number(($event.target as HTMLInputElement).value);
-        if (height >= 0) {
-            this.config.backgroundImageHeight = height;
-        } else {
-            console.error('Background image height must be a positive value');
+    public setBackgroundImageSize($event: Event) {
+        let size: number = Number(($event.target as HTMLInputElement).value);
+        if (size >= 100) {
+            size = 100;
         }
-    }
-
-    public setBackgroundImageWidth($event: Event) {
-        const width: number = Number(($event.target as HTMLInputElement).value);
-        if (width >= 0) {
-            this.config.backgroundImageWidth = width;
-        } else {
-            console.error('Background image width must be a positive value');
+        if (size < 0) {
+            size = 0;
         }
+        this.config.backgroundImageSize = size;
     }
 
     public setBackgroundImageLeftMargin($event: Event) {

@@ -42,15 +42,11 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
   private backgroundImagePlaceHolder: ElementRef;
 
   private ctrlKeyPressed = false;
-  private mouseMoveForegroundImageTopMargin: number;
-  private mouseMoveForegroundImageLeftMargin: number;
-  private mouseMoveBackgroundImageTopMargin: number;
-  private mouseMoveBackgroundImageLeftMargin: number;
 
-  // private currentForegroundMarginLeft: number;
-  // private currentForegroundMarginTop: number;
-  // private currentBackgroundLeft: number;
-  // private currentBackgroundTop: number;
+  private currentForegroundMarginLeft: number;
+  private currentForegroundMarginTop: number;
+  private currentBackgroundLeft: number;
+  private currentBackgroundTop: number;
 
   private displayedAlert = false;
 
@@ -61,6 +57,10 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
   private measurementContainerHeight = 200;
   private measurementContainerMarginTop = 0;
   private imagesContainerMarginTop = 0;
+
+  public calculatedForegroundImageHeight = 0;
+  public calculatedBackgroundImageHeight = 0;
+
   public measurementContainerStyle = new BehaviorSubject<{height: string, 'margin-top': string}>({height: this.measurementContainerHeight + 'px', 'margin-top': this.measurementContainerMarginTop + 'px'});
   public imagesContainerStyle = new BehaviorSubject<{'margin-top': string}>({'margin-top': this.imagesContainerMarginTop + 'px'});
 
@@ -77,19 +77,16 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
 
       this.foregroundImagePlaceHolder.nativeElement.onmousedown = ( (event) => {
         if (this.config.debugMode) {
-          // If the control key is held down, we will update the config left and top positions on mouseup - the user can then 'edit' and save the widget to make these changes permanent
+          // If the control key is held down, we will store the config left and top positions on mouseup - the user can then 'edit' and save the widget to make these changes permanent
           this.ctrlKeyPressed = !!event.ctrlKey;
           mouseDown = true;
 
-          // this.currentForegroundMarginLeft = this.foregroundImagePlaceHolder.nativeElement.style.marginLeft;
-          // this.currentForegroundMarginTop = this.foregroundImagePlaceHolder.nativeElement.style.marginTop;
-          // this.currentBackgroundLeft = this.backgroundImagePlaceHolder.nativeElement.offsetLeft;
-          // this.currentBackgroundTop = this.backgroundImagePlaceHolder.nativeElement.offsetTop;
-
-          //console.log('currentForegroundMarginLeft is', this.currentForegroundMarginLeft);
-          //console.log('currentForegroundMarginTop is', this.currentForegroundMarginTop);
-          //console.log('currentBackgroundLeft is', this.currentBackgroundLeft);
-          //console.log('currentBackgroundTop is', this.currentBackgroundTop);
+          this.currentForegroundMarginLeft = Number(this.foregroundImagePlaceHolder.nativeElement.style.marginLeft.replace('px',''));
+          this.currentForegroundMarginTop = Number(this.foregroundImagePlaceHolder.nativeElement.style.marginTop.replace('px',''));
+          if (this.backgroundImagePlaceHolder) {
+            this.currentBackgroundLeft = Number(this.backgroundImagePlaceHolder.nativeElement.offsetLeft);
+            this.currentBackgroundTop = Number(this.backgroundImagePlaceHolder.nativeElement.offsetTop);
+          }
 
         }
       });
@@ -110,20 +107,27 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
         if (mouseDown) {
 
           // Foreground Image
-          const newForegroundMarginLeft = event.layerX - event.offsetX - (event.movementX * -1);
-          this.mouseMoveForegroundImageLeftMargin = newForegroundMarginLeft;
-          this.foregroundImagePlaceHolder.nativeElement.style["marginLeft"] = newForegroundMarginLeft + 'px';
-          const newForegroundMarginTop = event.layerY - event.offsetY - (event.movementY * -1)
-          this.mouseMoveForegroundImageTopMargin = newForegroundMarginTop;
-          this.foregroundImagePlaceHolder.nativeElement.style["marginTop"] = newForegroundMarginTop + 'px';
 
-          // Background Image
-          const newBackgroundMarginLeft = this.backgroundImagePlaceHolder.nativeElement.offsetLeft - (event.movementX * -1);
-          this.mouseMoveBackgroundImageLeftMargin = newBackgroundMarginLeft;
-          this.backgroundImagePlaceHolder.nativeElement.style["left"] = newBackgroundMarginLeft + 'px';
-          const newBackgroundMarginTop = this.backgroundImagePlaceHolder.nativeElement.offsetTop - (event.movementY * -1);
-          this.mouseMoveBackgroundImageTopMargin = newBackgroundMarginTop;
-          this.backgroundImagePlaceHolder.nativeElement.style["top"] = newBackgroundMarginTop + 'px';
+          // Prevent the foreground image from being dragged outside of the foreground image div
+          const foregroundImageDivMaxWidth = this.foregroundImagePlaceHolder.nativeElement.parentNode.offsetWidth;
+
+          if (this.currentForegroundMarginLeft + event.movementX < foregroundImageDivMaxWidth) {
+            this.currentForegroundMarginLeft = this.currentForegroundMarginLeft + event.movementX;
+
+            this.foregroundImagePlaceHolder.nativeElement.style["marginLeft"] = this.currentForegroundMarginLeft + 'px';
+
+            this.currentForegroundMarginTop = this.currentForegroundMarginTop + event.movementY;
+            this.foregroundImagePlaceHolder.nativeElement.style["marginTop"] = this.currentForegroundMarginTop + 'px';
+
+            // Background Image
+            if (this.backgroundImagePlaceHolder) {
+              this.currentBackgroundLeft = this.currentBackgroundLeft + event.movementX;
+              this.backgroundImagePlaceHolder.nativeElement.style["left"] = this.currentBackgroundLeft + 'px';
+
+              this.currentBackgroundTop = this.currentBackgroundTop + event.movementY;
+              this.backgroundImagePlaceHolder.nativeElement.style["top"] = this.currentBackgroundTop + 'px';
+            }
+          }
         }
       });
     }
@@ -169,16 +173,13 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
     this.cdkDropListContainer = this.elRef.nativeElement.parentNode.parentNode.parentNode.parentNode;
     // Check to see if the widget title is visible
     const c8yDashboardChildTitle = this.cdkDropListContainer.querySelector('c8y-dashboard-child-title');
-    console.log(c8yDashboardChildTitle);
     const widgetTitleDisplayValue: string = window.getComputedStyle(c8yDashboardChildTitle).getPropertyValue('display');
     if(widgetTitleDisplayValue !== undefined && widgetTitleDisplayValue !== null && widgetTitleDisplayValue === 'none') {
-      console.log('Title is hidden');
       this.measurementContainerMarginTop = 20;
       this.imagesContainerMarginTop = 20;
       this.measurementContainerStyle.next({height: this.measurementContainerHeight + 'px', 'margin-top': this.measurementContainerMarginTop + 'px'});
       this.imagesContainerStyle.next({'margin-top': this.imagesContainerMarginTop + 'px'});
     } else {
-      console.log('Title is visible');
       this.measurementContainerMarginTop = 0;
       this.imagesContainerMarginTop = 0;
       this.measurementContainerStyle.next({height: this.measurementContainerHeight + 'px', 'margin-top': this.measurementContainerMarginTop + 'px'});
@@ -201,10 +202,10 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
   private saveForegroundAndBackgroundImageLocations() {
     if (this.ctrlKeyPressed) {
       // Update the config foreground and background data with the adjusted top margin and left margin positions
-      this.config.foregroundImageTopMargin = this.mouseMoveForegroundImageTopMargin;
-      this.config.foregroundImageLeftMargin = this.mouseMoveForegroundImageLeftMargin;
-      this.config.backgroundImageTopMargin = this.mouseMoveBackgroundImageTopMargin;
-      this.config.backgroundImageLeftMargin = this.mouseMoveBackgroundImageLeftMargin;
+      this.config.foregroundImageTopMargin = this.currentForegroundMarginTop;
+      this.config.foregroundImageLeftMargin = this.currentForegroundMarginLeft;
+      this.config.backgroundImageTopMargin = this.currentBackgroundTop;
+      this.config.backgroundImageLeftMargin = this.currentBackgroundLeft;
       if (!this.displayedAlert) {
         alert('Silo Capacity Widget: To save the new foreground and background image locations, edit the widget and click save, otherwise refresh the page to reset back to original')
         this.displayedAlert = true;
@@ -285,11 +286,8 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
         }
 
         if (this.config.showForegroundImage) {
-          if (this.config.foregroundImageHeight === undefined) {
-            this.config.foregroundImageHeight = 207;
-          }
-          if (this.config.foregroundImageWidth === undefined) {
-            this.config.foregroundImageWidth = 120;
+          if (this.config.foregroundImageSize === undefined) {
+            this.config.foregroundImageSize = 50;
           }
           if (this.config.foregroundImageLeftMargin === undefined) {
             this.config.foregroundImageLeftMargin = 20;
@@ -300,11 +298,8 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
         }
 
         if (this.config.showBackgroundImage) {
-          if (this.config.backgroundImageHeight === undefined) {
-            this.config.backgroundImageHeight = 160;
-          }
-          if (this.config.backgroundImageWidth === undefined) {
-            this.config.backgroundImageWidth = 100;
+          if (this.config.backgroundImageSize === undefined) {
+            this.config.backgroundImageSize = 42;
           }
           if (this.config.backgroundImageLeftMargin === undefined) {
             this.config.backgroundImageLeftMargin = 34;
@@ -317,6 +312,9 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
         if (this.config.enableThresholds === undefined) {
           this.config.enableThresholds = false;
         }
+
+        this.calculatedForegroundImageHeight = this.config.foregroundImageHeight * (this.config.foregroundImageSize / 100);
+        this.calculatedBackgroundImageHeight = this.config.backgroundImageHeight * (this.config.backgroundImageSize / 100);
 
         const borderRadius = this.config.cylinderWidth + 'px/' + this.config.cylinderTiltHeight + 'px';
         this.cylinderStyle.next({
