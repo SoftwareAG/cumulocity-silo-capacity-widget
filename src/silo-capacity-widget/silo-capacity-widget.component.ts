@@ -15,7 +15,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
  */
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { WidgetConfig } from './i-widget-config';
 import * as _ from 'lodash'
 import { Realtime, MeasurementService } from '@c8y/ngx-components/api';
@@ -26,7 +26,7 @@ import { BehaviorSubject } from "rxjs";
   templateUrl: './silo-capacity-widget.component.html',
   styleUrls: ['./silo-capacity-widget.component.css']
 })
-export class SiloCapacityWidget implements OnInit, OnDestroy {
+export class SiloCapacityWidget implements OnInit, OnDestroy, DoCheck {
   
   @Input() public config: WidgetConfig;
 
@@ -47,7 +47,15 @@ export class SiloCapacityWidget implements OnInit, OnDestroy {
   private mouseMoveBackgroundImageTopMargin: number;
   private mouseMoveBackgroundImageLeftMargin: number;
 
+  // private currentForegroundMarginLeft: number;
+  // private currentForegroundMarginTop: number;
+  // private currentBackgroundLeft: number;
+  // private currentBackgroundTop: number;
+
   private displayedAlert = false;
+
+  private cdkDropListContainerHeight = 200;
+  public measurementContainerHeight = new BehaviorSubject<{height: string}>({height: this.cdkDropListContainerHeight + 'px'});
 
   // This ViewChild is only used when in debug mode to allow the user to move the foreground and backgrounds image around
   @ViewChild('foregroundImagePlaceHolder', {read: ElementRef, static: false}) set foregroundImage(foregroundImage: ElementRef) {
@@ -65,6 +73,17 @@ export class SiloCapacityWidget implements OnInit, OnDestroy {
           // If the control key is held down, we will update the config left and top positions on mouseup - the user can then 'edit' and save the widget to make these changes permanent
           this.ctrlKeyPressed = !!event.ctrlKey;
           mouseDown = true;
+
+          // this.currentForegroundMarginLeft = this.foregroundImagePlaceHolder.nativeElement.style.marginLeft;
+          // this.currentForegroundMarginTop = this.foregroundImagePlaceHolder.nativeElement.style.marginTop;
+          // this.currentBackgroundLeft = this.backgroundImagePlaceHolder.nativeElement.offsetLeft;
+          // this.currentBackgroundTop = this.backgroundImagePlaceHolder.nativeElement.offsetTop;
+
+          //console.log('currentForegroundMarginLeft is', this.currentForegroundMarginLeft);
+          //console.log('currentForegroundMarginTop is', this.currentForegroundMarginTop);
+          //console.log('currentBackgroundLeft is', this.currentBackgroundLeft);
+          //console.log('currentBackgroundTop is', this.currentBackgroundTop);
+
         }
       });
 
@@ -82,6 +101,7 @@ export class SiloCapacityWidget implements OnInit, OnDestroy {
 
       this.foregroundImagePlaceHolder.nativeElement.onmousemove = (event => {
         if (mouseDown) {
+
           // Foreground Image
           const newForegroundMarginLeft = event.layerX - event.offsetX - (event.movementX * -1);
           this.mouseMoveForegroundImageLeftMargin = newForegroundMarginLeft;
@@ -110,7 +130,8 @@ export class SiloCapacityWidget implements OnInit, OnDestroy {
 
   constructor(
     private realtime: Realtime,
-    private measurementService: MeasurementService) {
+    private measurementService: MeasurementService,
+    private elRef: ElementRef) {
   }
 
   public ngOnInit(): void {
@@ -135,6 +156,15 @@ export class SiloCapacityWidget implements OnInit, OnDestroy {
           console.error(`'Cylinder Fill Widget': ${error}`);
           alert(`'Cylinder Fill Widget': ${error}`);
     });
+  }
+
+  public ngDoCheck() {
+    const cdkDropListContainer = this.elRef.nativeElement.parentNode.parentNode.parentNode.parentNode;
+    this.cdkDropListContainerHeight = cdkDropListContainer.offsetHeight;
+    const measurementContainerStyleHeight = {height: (this.cdkDropListContainerHeight / 1.545) + 'px'};
+    if (measurementContainerStyleHeight.height != this.measurementContainerHeight.getValue().height) {
+      this.measurementContainerHeight.next(measurementContainerStyleHeight);
+    }
   }
 
   private saveForegroundAndBackgroundImageLocations() {
@@ -438,14 +468,17 @@ export class SiloCapacityWidget implements OnInit, OnDestroy {
 
 
   private resetForegroundImageLocation(foregroundImagePlaceHolder) {
-    foregroundImagePlaceHolder.nativeElement.style["marginLeft"] = this.config.foregroundImageLeftMargin + 'px';
-    foregroundImagePlaceHolder.nativeElement.style["marginTop"] = this.config.foregroundImageTopMargin + 'px';
+    if (foregroundImagePlaceHolder) {
+      foregroundImagePlaceHolder.nativeElement.style["marginLeft"] = this.config.foregroundImageLeftMargin + 'px';
+      foregroundImagePlaceHolder.nativeElement.style["marginTop"] = this.config.foregroundImageTopMargin + 'px';
+    }
   }
 
   private resetBackgroundImageLocation(backgroundImagePlaceHolder) {
-    backgroundImagePlaceHolder.nativeElement.style["left"] = this.config.backgroundImageLeftMargin + 'px';
-    backgroundImagePlaceHolder.nativeElement.style["top"] = this.config.backgroundImageTopMargin + 'px';
+    if (backgroundImagePlaceHolder) {
+      backgroundImagePlaceHolder.nativeElement.style["left"] = this.config.backgroundImageLeftMargin + 'px';
+      backgroundImagePlaceHolder.nativeElement.style["top"] = this.config.backgroundImageTopMargin + 'px';
+    }
   }
-
 
 }

@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="measurement-container">
+        <div class="measurement-container" [ngStyle]="(measurementContainerHeight | async)">
             <ng-container *ngIf="config.fillLevelMaximumLabel.length > 0">
                 <p class="measurement-label">{{config.fillLevelMaximumLabel}}</p>
                 <p class="measurement-value-unit-container">
@@ -60,9 +60,9 @@
                     <span class="measurement-value" [ngStyle]="setThresholdColorStyle()">{{currentFillPercentage | number:'1.2-2' }}{{'%'}}</span>
                 </ng-container>
                 <ng-container *ngIf="config.debugMode">
-            <span class="measurement-value-debug-mode">
-                <input type="number" min="0" max="100" step="25" value="25" (change)="setCurrentFillPercentage($event.target.value)"><label>{{'%'}}</label>
-            </span>
+                <span class="measurement-value-debug-mode">
+                    <input type="number" min="0" max="100" step="25" value="25" (change)="setCurrentFillPercentage($event.target.value)"><label>{{'%'}}</label>
+                </span>
                 </ng-container>
             </p>
 
