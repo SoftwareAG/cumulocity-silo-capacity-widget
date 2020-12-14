@@ -33,25 +33,39 @@
     </div>
     <div class="col-lg-6">
         <div class="measurement-container">
-            <p class="measurement-label">{{config.fillLevelMaximumLabel}}</p>
+            <ng-container *ngIf="config.fillLevelMaximumLabel.length > 0">
+                <p class="measurement-label">{{config.fillLevelMaximumLabel}}</p>
+                <p class="measurement-value-unit-container">
+                    <span class="measurement-value">{{config.fillLevelMaximumAmount + ' ' + config.fillLevelUnit}}</span>
+                </p>
+            </ng-container>
+
+            <ng-container *ngIf="config.fillOrRemainingLabel.length > 0">
+                <p class="measurement-label">{{config.fillOrRemainingLabel}}</p>
+                <p class="measurement-value-unit-container">
+                    <span class="measurement-value" [ngStyle]="setThresholdColorStyle()">{{this.currentFillLevel| number:'1.2-2'}} {{' ' + config.fillLevelUnit}}</span>
+                </p>
+            </ng-container>
+
+            <ng-container *ngIf="config.currentFillPercentageLabel.length > 0">
+                <p class="measurement-label">{{config.currentFillPercentageLabel}}</p>
+            </ng-container>
+
+            <ng-container *ngIf="config.currentFillPercentageLabel.length == 0 && config.debugMode">
+                <p class="measurement-label">Debug mode</p>
+            </ng-container>
+
             <p class="measurement-value-unit-container">
-                <span class="measurement-value">{{config.fillLevelMaximumAmount + ' ' + config.fillLevelUnit}}</span>
-            </p>
-            <p class="measurement-label">{{config.fillOrRemainingLabel}}</p>
-            <p class="measurement-value-unit-container">
-                <span class="measurement-value" [ngStyle]="setThresholdColorStyle()">{{this.currentFillLevel| number:'1.2-2'}} {{' ' + config.fillLevelUnit}}</span>
-            </p>
-            <p class="measurement-label">{{config.currentFillPercentageLabel}}</p>
-            <p class="measurement-value-unit-container">
-                <ng-container *ngIf="!config.debugMode">
+                <ng-container *ngIf="config.currentFillPercentageLabel.length > 0 && !config.debugMode">
                     <span class="measurement-value" [ngStyle]="setThresholdColorStyle()">{{currentFillPercentage | number:'1.2-2' }}{{'%'}}</span>
                 </ng-container>
                 <ng-container *ngIf="config.debugMode">
-                <span class="measurement-value-debug-mode">
-                    <input type="number" min="0" max="100" step="25" value="25" (change)="setCurrentFillPercentage($event.target.value)"><label>{{'%'}}</label>
-                </span>
+            <span class="measurement-value-debug-mode">
+                <input type="number" min="0" max="100" step="25" value="25" (change)="setCurrentFillPercentage($event.target.value)"><label>{{'%'}}</label>
+            </span>
                 </ng-container>
             </p>
+
         </div>
     </div>
 </div>

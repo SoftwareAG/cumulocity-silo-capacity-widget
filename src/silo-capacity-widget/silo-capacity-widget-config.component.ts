@@ -53,11 +53,11 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     <div class="row">
                         <div class="col-lg-4">
                             <c8y-form-group>
-                                <label for="fillLevelMaximumLabel">Maximum fill level label</label>
+                                <label for="fillLevelMaximumLabel">Maximum fill level label (optional)</label>
                                 <input type="text" class="form-control" id="fillLevelMaximumLabel"
                                        name="fillLevelMaximumLabel"
                                        placeholder="Set the label which will be displayed for the maximum fill level"
-                                       [(ngModel)]="config.fillLevelMaximumLabel" required>
+                                       [(ngModel)]="config.fillLevelMaximumLabel">
                             </c8y-form-group>
                         </div>
                         <div class="col-lg-4">
@@ -81,11 +81,11 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     <div class="row">
                         <div class="col-lg-4">
                             <c8y-form-group>
-                                <label for="fillOrRemainingLabel">Fill or remaining label</label>
+                                <label for="fillOrRemainingLabel">Fill or remaining label (optional)</label>
                                 <input type="text" class="form-control" id="fillOrRemainingLabel"
                                        name="fillOrRemainingLabel"
                                        placeholder="Set the label which will be displayed for the fill or remaining level"
-                                       [(ngModel)]="config.fillOrRemainingLabel" required>
+                                       [(ngModel)]="config.fillOrRemainingLabel">
                             </c8y-form-group>
                         </div>
                         <div class="col-lg-8">
@@ -123,11 +123,11 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     <div class="row">
                         <div class="col-lg-4">
                             <c8y-form-group>
-                                <label for="currentFillPercentageLabel">Current fill percentage label</label>
+                                <label for="currentFillPercentageLabel">Current fill percentage label (optional)</label>
                                 <input type="text" class="form-control" id="currentFillPercentageLabel"
                                        name="currentFillPercentageLabel"
                                        placeholder="Set the label which will be displayed for the current fill percentage"
-                                       [(ngModel)]="config.currentFillPercentageLabel" required>
+                                       [(ngModel)]="config.currentFillPercentageLabel">
                             </c8y-form-group>
                         </div>
                     </div>
