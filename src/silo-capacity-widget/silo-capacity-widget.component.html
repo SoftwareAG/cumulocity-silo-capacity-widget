@@ -1,7 +1,7 @@
 <div class="row no-margin">
-    <div class="col-lg-6">
+    <div class="col-lg-5">
         <div class="images-container" [ngStyle]="(measurementContainerStyle | async)">
-            <ng-container *ngIf="config.showForegroundImage === true && config.foregroundImageSize">
+            <ng-container *ngIf="config.showForegroundImage === true && calculatedForegroundImageHeight">
                 <div class="image-container">
                     <div class="foreground-image">
                         <img #foregroundImagePlaceHolder [src]="getForegroundImage()" [ngStyle]="{'width': 'auto', 'height': calculatedForegroundImageHeight.toString() + 'px', 'margin-left': config.foregroundImageLeftMargin.toString() + 'px', 'margin-top': config.foregroundImageTopMargin.toString() + 'px'}" alt="Foreground image"/>
@@ -9,7 +9,7 @@
                 </div>
             </ng-container>
 
-            <ng-container *ngIf="config.showBackgroundImage === true && config.backgroundImageSize">
+            <ng-container *ngIf="config.showBackgroundImage === true && calculatedForegroundImageHeight">
                 <div class="image-container">
                     <div class="background-image">
                         <img #backgroundImagePlaceHolder [src]="getBackgroundImage()" [ngStyle]="{'width': 'auto', 'height': calculatedBackgroundImageHeight.toString() + 'px', 'left': config.backgroundImageLeftMargin.toString() + 'px', 'top': config.backgroundImageTopMargin.toString() + 'px'}" alt="Background image"/>
@@ -31,7 +31,7 @@
             </ng-container>
         </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-7">
         <div class="measurement-container" [ngStyle]="(measurementContainerStyle | async)">
             <ng-container *ngIf="config.fillLevelMaximumLabel && config.fillLevelMaximumLabel.length > 0">
                 <p class="measurement-label">{{config.fillLevelMaximumLabel}}</p>

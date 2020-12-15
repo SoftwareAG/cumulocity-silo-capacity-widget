@@ -91,7 +91,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                         <div class="col-lg-8">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <label class="label-with-help" for="fillOrRemainingCalculation">Fill or remaining calculation</label>
+                                    <label class="label-with-help" for="fillOrRemainingCalculation">Fill or remaining
+                                        calculation</label>
                                     <span class="help-icon">
                                         <img src="{{CONST_HELP_IMAGE_FILE}}"
                                              alt="help tooltip"
@@ -102,7 +103,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                             <div class="row">
                                 <div class="col-lg-5">
                                     <span class="calculate-remaining-volume-container">
-                                        <input type="radio" id="calculateRemainingVolume" name="fillOrRemainingCalculation"
+                                        <input type="radio" id="calculateRemainingVolume"
+                                               name="fillOrRemainingCalculation"
                                                value="calculateRemainingVolume"
                                                [(ngModel)]="config.fillOrRemainingCalculation"/>
                                         <label for="calculateRemainingVolume">Calculate remaining volume</label>
@@ -191,13 +193,15 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                          alt="help tooltip"
                                          title="This attribute tilts the angle of the cylinder.">
                                 </span>
-                                <input type="number" min="1" max="50" class="form-control" id="cylinderTiltHeight" name="cylinderTiltHeight"
-                                       placeholder="Set the tilt height of your cylinder" [ngModel]="config.cylinderTiltHeight"
+                                <input type="number" min="1" max="50" class="form-control" id="cylinderTiltHeight"
+                                       name="cylinderTiltHeight"
+                                       placeholder="Set the tilt height of your cylinder"
+                                       [ngModel]="config.cylinderTiltHeight"
                                        (change)="setCylinderTiltHeight($event)" required>
                             </c8y-form-group>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-lg-6">
                             <c8y-form-group>
@@ -262,11 +266,11 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     <div class="row">
                         <div class="col-lg-3">
                             <c8y-form-group>
-                                <label for="foregroundImageSize">Size (%)</label>
-                                <input type="number" class="form-control" id="foregroundImageSize"
-                                       name="foregroundImageSize"
-                                       placeholder="Set the size of your foreground image"
-                                       [ngModel]="config.foregroundImageSize"
+                                <label for="foregroundImageHeightPercent">Height (%)</label>
+                                <input type="number" class="form-control" id="foregroundImageHeightPercent"
+                                       name="foregroundImageHeightPercent"
+                                       placeholder="Set the height of your foreground image"
+                                       [ngModel]="config.foregroundImageHeightPercent"
                                        (change)="setForegroundImageSize($event)">
                             </c8y-form-group>
                         </div>
@@ -327,11 +331,11 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                     <div class="row">
                         <div class="col-lg-3">
                             <c8y-form-group>
-                                <label for="backgroundImageSize">Size (%)</label>
-                                <input type="number" class="form-control" id="backgroundImageSize"
-                                       name="backgroundImageSize"
-                                       placeholder="Set the size of your background image"
-                                       [ngModel]="config.backgroundImageSize"
+                                <label for="backgroundImageHeightPercent">Height (%)</label>
+                                <input type="number" class="form-control" id="backgroundImageHeightPercent"
+                                       name="backgroundImageHeightPercent"
+                                       placeholder="Set the height of your background image"
+                                       [ngModel]="config.backgroundImageHeightPercent"
                                        (change)="setBackgroundImageSize($event)">
                             </c8y-form-group>
                         </div>
@@ -392,7 +396,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                        name="thresholdHighRangeMin"
                                        placeholder="Set the high range minimum value"
                                        [ngModel]="config.thresholdHighRangeMin"
-                                        (change)="setThresholdHighRangeMin($event)">
+                                       (change)="setThresholdHighRangeMin($event)">
                             </c8y-form-group>
                         </div>
                         <div class="col-lg-4">
@@ -669,7 +673,7 @@ export class SiloCapacityWidgetConfig implements OnInit {
             const foregroundImage = new Image();
             foregroundImage.src = this.foregroundImageFileAsString;
             foregroundImage.onload = () => {
-                this.config.foregroundImageHeight = foregroundImage.height;
+                this.config.foregroundImageHeightInPixels = foregroundImage.height;
             }
           };
         } else {
@@ -688,7 +692,7 @@ export class SiloCapacityWidgetConfig implements OnInit {
         if (size < 0) {
             size = 0;
         }
-        this.config.foregroundImageSize = size;
+        this.config.foregroundImageHeightPercent = size;
     }
 
     public setForegroundImageLeftMargin($event: Event) {
@@ -718,7 +722,7 @@ export class SiloCapacityWidgetConfig implements OnInit {
                     const backgroundImage = new Image();
                     backgroundImage.src = this.backgroundImageFileAsString;
                     backgroundImage.onload = () => {
-                        this.config.backgroundImageHeight = backgroundImage.height;
+                        this.config.backgroundImageHeightInPixels = backgroundImage.height;
                     }
                 };
             } else {
@@ -737,7 +741,7 @@ export class SiloCapacityWidgetConfig implements OnInit {
         if (size < 0) {
             size = 0;
         }
-        this.config.backgroundImageSize = size;
+        this.config.backgroundImageHeightPercent = size;
     }
 
     public setBackgroundImageLeftMargin($event: Event) {

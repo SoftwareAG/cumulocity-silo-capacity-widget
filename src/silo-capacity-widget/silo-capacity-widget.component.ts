@@ -286,8 +286,8 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
         }
 
         if (this.config.showForegroundImage) {
-          if (this.config.foregroundImageSize === undefined) {
-            this.config.foregroundImageSize = 50;
+          if (this.config.foregroundImageHeightPercent === undefined) {
+            this.config.foregroundImageHeightPercent = 50;
           }
           if (this.config.foregroundImageLeftMargin === undefined) {
             this.config.foregroundImageLeftMargin = 20;
@@ -298,8 +298,8 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
         }
 
         if (this.config.showBackgroundImage) {
-          if (this.config.backgroundImageSize === undefined) {
-            this.config.backgroundImageSize = 42;
+          if (this.config.backgroundImageHeightPercent === undefined) {
+            this.config.backgroundImageHeightPercent = 42;
           }
           if (this.config.backgroundImageLeftMargin === undefined) {
             this.config.backgroundImageLeftMargin = 34;
@@ -313,8 +313,8 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
           this.config.enableThresholds = false;
         }
 
-        this.calculatedForegroundImageHeight = this.config.foregroundImageHeight * (this.config.foregroundImageSize / 100);
-        this.calculatedBackgroundImageHeight = this.config.backgroundImageHeight * (this.config.backgroundImageSize / 100);
+        this.calculatedForegroundImageHeight = this.config.foregroundImageHeightInPixels * (this.config.foregroundImageHeightPercent / 100);
+        this.calculatedBackgroundImageHeight = this.config.backgroundImageHeightInPixels * (this.config.backgroundImageHeightPercent / 100);
 
         const borderRadius = this.config.cylinderWidth + 'px/' + this.config.cylinderTiltHeight + 'px';
         this.cylinderStyle.next({
