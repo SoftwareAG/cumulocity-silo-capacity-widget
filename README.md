@@ -1,8 +1,8 @@
-﻿# Cumulocity IoT Silo Capacity widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget/releases/download/1.0.0/silo-capacity-widget.zip)
+﻿# Cumulocity IoT Silo Capacity widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget/releases/download/1.0.1/silo-capacity-widget_v1.0.1.zip)
 
 
 
-| ![Cylinder Fill example](./styles/previewImage.png)  |      | ![Cylinder Fill example](./styles/previewImage2.png) |
+| ![Cylinder Fill example](./styles/previewImage1.png)  |      | ![Cylinder Fill example](./styles/previewImage2.png) |
 | ---------------------------------------------------- | ---- | ---------------------------------------------------- |
 |                                                      |      |                                                      |
 | ![Cylinder Fill example](./styles/previewImage3.png) |      | ![Cylinder Fill example](./styles/previewImage4.png) |
@@ -30,7 +30,7 @@
 
 ### Runtime Widget Deployment?
 
-* This widget supports runtime deployment. Download the [Runtime Binary](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget/releases/download/1.0.0/silo-capacity-widget.zip) and follow runtime deployment instructions from [here](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader).
+* This widget supports runtime deployment. Download the [Runtime Binary](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget/releases/download/1.0.1/silo-capacity-widget_v1.0.1.zip) and follow runtime deployment instructions from [here](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader).
 
 ## Userguide
 This guide will teach you how to add the widget in your existing or new dashboard.
@@ -67,31 +67,46 @@ The widget configuration page contains a number of configuration attributes.
   
    
   
-- **Maximum fill level label** : Enter the label which will be displayed above the maximum fill level amount
+- **Maximum fill level label** : Enter the label which will be displayed above the maximum fill level amount (note, if no label is entered, this section will not be displayed in the widget)
+
 
 - **Maximum fill amount** : Enter the maximum fill amount for the device you have linked to this widget
 
+
 - **Fill level unit** : Enter the fill level unit for the device which you have linked to this widget
 
-  
+
+- **Fill or remaining label** : Enter the label which will be displayed for the calculated fill or remaining volume (note, if no label is entered, this section will not be displayed in the widget)
+
+
+- **Fill or remaining calculation** : The measurement percentage which is received can be used to calculate the remaining volume left in the cylinder or to calculate the amount of volume until the container is full  
+
+
+- **Current fill prcentage label** : Enter the label which will be displayed for the current measurement percentage (note, if no label is entered, this section will not be displayed in the widget)
+
 
 **Cylinder configuration** section
 
 
-  - **Height (px)** : Enter the height of the cylinder in pixels
+- **Height (px)** : Enter the height of the cylinder in pixels
+
 
 - **Width (px)** : Enter the width of the cylinder in pixels
 
 
-  - **Left margin (px)** : To position the cylinder, enter the amount of pixels which should be padded on the left
+- **Left margin (px)** : To position the cylinder, enter the amount of pixels which should be padded on the left
 
-  - **Top margin (px)** :  To position the cylinder, enter the amount of pixels which should be padded at the top
 
-  - **Tilt height (px)** : The cylinder angle can be adjusted by amending the tilt height. Use this to adjust the cylinder to match the foreground and background image angle
+- **Top margin (px)** :  To position the cylinder, enter the amount of pixels which should be padded at the top
 
-  - **Cylinder color (hex, rgb, rgba)** : Click on this field to select the color from the color palette. Alternatively, manually enter the hex value ( e.g. #d9ca1fff ), rgb value ( e.g. rgb(128, 255, 128) ), rgba value ( e.g. rgba(160, 160, 160, 0.5) ),  or the color string ( e.g. red, orange )
 
-  - **Cylinder fill color (hex, rgb, rgba)** : Click on this field to select the color from the color palette. Alternatively, manually enter the hex value ( e.g. #d9ca1fff ), rgb value ( e.g. rgb(128, 255, 128) ), rgba value ( e.g. rgba(160, 160, 160, 0.5) ),  or the color string ( e.g. red, orange )
+- **Tilt height (px)** : The cylinder angle can be adjusted by amending the tilt height. Use this to adjust the cylinder to match the foreground and background image angle
+
+
+- **Cylinder color (hex, rgb, rgba)** : Click on this field to select the color from the color palette. Alternatively, manually enter the hex value ( e.g. #d9ca1fff ), rgb value ( e.g. rgb(128, 255, 128) ), rgba value ( e.g. rgba(160, 160, 160, 0.5) ),  or the color string ( e.g. red, orange )
+
+
+- **Cylinder fill color (hex, rgb, rgba)** : Click on this field to select the color from the color palette. Alternatively, manually enter the hex value ( e.g. #d9ca1fff ), rgb value ( e.g. rgb(128, 255, 128) ), rgba value ( e.g. rgba(160, 160, 160, 0.5) ),  or the color string ( e.g. red, orange )
 
   
 
@@ -99,13 +114,15 @@ The widget configuration page contains a number of configuration attributes.
 
 - **Image file (png, jpeg, jpg)** : Click the button to select and upload a foreground image
 
-- **Height (px)** : Enter the height in pixels, for the image
 
-- **Width (px)** : Enter the width in pixels, for the image
+- **Height (%)** : Enter the height in percent for the image
+
 
 - **Left margin (px)** : To position the foreground image, enter the amount of pixels which should be padded on the left
 
+
 - **Top margin (px)** : To position the foreground image, enter the amount of pixels which should be padded at the top
+
 
 - **Show foreground image** : Once the foreground image has been uploaded and the image attributes have been entered, it is possible to hide the foreground by selecting this option
 
@@ -115,10 +132,17 @@ The widget configuration page contains a number of configuration attributes.
 **Background image configuration (optional)** section
 
 - **Image file (png, jpeg, jpg)** : Click the button to select and upload a background image
-- **Height (px)** : Enter the height in pixels, for the image
-- **Width (px)** : Enter the width in pixels, for the image
+
+
+- **Height (%)** : Enter the height in percent for the image
+
+
 - **Left margin (px)** : To position the background image, enter the amount of pixels which should be padded on the left 
+
+
 - **Top margin (px)** : To position the background image, enter the amount of pixels which should be padded at the top
+
+
 - **Show background image** : Once the background image has been uploaded and the image attributes have been entered, it is possible to hide the background by selecting this option
 
 
@@ -126,11 +150,23 @@ The widget configuration page contains a number of configuration attributes.
 **Threshold configuration (optional)** section
 
 - **High threshold range : Minimum value (%)** : Enter the minimum value for the high threshold range
+
+
 - **High threshold range : Maximum value (%)** : Enter the maximum value for the high threshold range 
+
+
 - **High threshold range : color (hex, rgb, rgba)** : Enter the hex value ( e.g. #d9ca1fff ), rgb value ( e.g. rgb(128, 255, 128) ), rgba value ( e.g. rgba(160, 160, 160, 0.5) ),  or the color string ( e.g. red, orange ) which will be used to set the label values and the cylinder color when the high threshold is breached
+
+
 - **Medium threshold range : Minimum value (%)** : Enter the minimum value for the medium threshold range
+
+
 - **Medium threshold range : Maximum value (%)** : Enter the maximum value for the medium threshold range
+
+
 - **Medium threshold range : color (hex, rgb, rgba)** : Enter the hex value ( e.g. #d9ca1fff ), rgb value ( e.g. rgb(128, 255, 128) ), rgba value ( e.g. rgba(160, 160, 160, 0.5) ),  or the color string ( e.g. red, orange ) which will be used to set the label values and the cylinder color when the medium threshold is breached
+
+
 - **Enable thresholds** : Once the threshold information has been entered, it is possible to disable the threshold processing by selecting this option
 
 
@@ -158,7 +194,7 @@ The widget configuration page contains a number of configuration attributes.
 ### Build - to create a new build of the silo-capacity widget for the Runtime Widget Loader
 1. Finish the development and testing on your local machine.
 2. Run `gulp` to start the build process.
-3. Use the `silo-capacity-widget.zip` file in the `dist` folder as your distribution file.
+3. Use the `silo-capacity-widget_vx.x.x.zip` file in the `dist` folder as your distribution file.
 
 ------------------------------
 
