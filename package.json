@@ -4,7 +4,7 @@
     "dist\\bundle-src\\custom-widget.js": "silo-capacity-widget-CustomWidget",
     "dist/bundle-src/custom-widget.js": "silo-capacity-widget-CustomWidget"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Displays silo capacity fill levels, foreground image, background image and thresholds (written by Software AG Global Presales)",
   "main": "index.js",
   "scripts": {

@@ -1,4 +1,4 @@
-﻿# Cumulocity IoT Silo Capacity widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget/releases/download/1.0.1/silo-capacity-widget_v1.0.1.zip)
+﻿# Cumulocity IoT Silo Capacity widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget/releases/download/1.0.2/silo-capacity-widget_v1.0.2.zip)
 
 
 
@@ -30,7 +30,7 @@
 
 ### Runtime Widget Deployment?
 
-* This widget supports runtime deployment. Download the [Runtime Binary](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget/releases/download/1.0.1/silo-capacity-widget_v1.0.1.zip) and follow runtime deployment instructions from [here](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader).
+* This widget supports runtime deployment. Download the [Runtime Binary](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget/releases/download/1.0.2/silo-capacity-widget_v1.0.2.zip) and follow runtime deployment instructions from [here](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader).
 
 ## Userguide
 This guide will teach you how to add the widget in your existing or new dashboard.
@@ -82,7 +82,10 @@ The widget configuration page contains a number of configuration attributes.
 - **Fill or remaining calculation** : The measurement percentage which is received can be used to calculate the remaining volume left in the cylinder or to calculate the amount of volume until the container is full  
 
 
-- **Current fill prcentage label** : Enter the label which will be displayed for the current measurement percentage (note, if no label is entered, this section will not be displayed in the widget)
+- **Current fill percentage label** : Enter the label which will be displayed for the current measurement percentage (note, if no label is entered, this section will not be displayed in the widget)
+
+
+- **Measurement is a percent or value** : Select whether the data being provided in the measurement is a percent or value
 
 
 **Cylinder configuration** section

@@ -130,8 +130,12 @@ input {
     font-size: 1.1em;
 }
 
-.measurement-value-debug-mode input{
+.measurement-value-debug-mode input {
     margin-bottom: 0;
+}
+
+.measurement-value-debug-mode .measurement-is-a-value {
+    width: 100px;
 }
 
 .threshold-normal {

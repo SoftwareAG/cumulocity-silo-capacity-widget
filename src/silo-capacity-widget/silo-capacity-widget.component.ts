@@ -158,7 +158,12 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
                 if (_.has(realtimeData.data.data, `${measurementFragmentAndSeries[0]}.${measurementFragmentAndSeries[1]}`)) {
                   // console.log('Received realtime measurement: ', JSON.stringify(realtimeData.data.data[measurementFragmentAndSeries[0]][measurementFragmentAndSeries[1]]));
                   const measurementValue = realtimeData.data.data[measurementFragmentAndSeries[0]][measurementFragmentAndSeries[1]].value;
-                  this.setCurrentFillPercentage(measurementValue);
+
+                  if (this.config.measurementIsAPercentOrValue === 'measurementIsAPercent') {
+                    this.setCurrentFillPercentage(measurementValue);
+                  } else {
+                    this.setCurrentValue(measurementValue);
+                  }
                 }
               });
             }
@@ -273,6 +278,10 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
           this.config.fillOrRemainingCalculation = 'calculateRemainingVolume';
         }
 
+        if (this.config.measurementIsAPercentOrValue === undefined) {
+          this.config.measurementIsAPercentOrValue = 'measurementIsAPercent';
+        }
+
         if (this.config.showForegroundImage === undefined) {
           this.config.showForegroundImage = false;
         }
@@ -368,7 +377,11 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
             if (data.length > 0) {
               const measurementObject = data[0];
               const measurementValue = measurementObject[measurementFragment][measurementSeries].value;
-              this.setCurrentFillPercentage(measurementValue);
+              if (this.config.measurementIsAPercentOrValue === 'measurementIsAPercent') {
+                this.setCurrentFillPercentage(measurementValue);
+              } else {
+                this.setCurrentValue(measurementValue);
+              }
             }
           } else {
             console.log('Unable to subscribe to realtime measurements as no device has been selected');
@@ -401,6 +414,21 @@ export class SiloCapacityWidget implements OnInit, OnDestroy, AfterViewInit, DoC
     if( this.realtimeMeasurement$ !== undefined ) {
       this.realtime.unsubscribe(this.realtimeMeasurement$);
     }
+  }
+
+  public setCurrentValue(value: number) {
+    if (value > this.config.fillLevelMaximumAmount) {
+      value = this.config.fillLevelMaximumAmount;
+    }
+    if (value < 0) {
+      value = 0;
+    }
+    // Convert to percentage
+    let valueAsAPercentage = 0;
+    if (this.config.fillLevelMaximumAmount > 0) {
+      valueAsAPercentage = (100.0 / this.config.fillLevelMaximumAmount) * value;
+    }
+    this.setCurrentFillPercentage(valueAsAPercentage);
   }
 
   public setCurrentFillPercentage(currentFillPercentage: number) {

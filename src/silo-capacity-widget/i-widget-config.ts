@@ -37,6 +37,7 @@ export interface WidgetConfig {
     fillOrRemainingLabel: string
     fillOrRemainingCalculation: string;
     currentFillPercentageLabel: string;
+    measurementIsAPercentOrValue: string
 
     showForegroundImage: boolean;
     foregroundImageText: string;

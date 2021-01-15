@@ -120,7 +120,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-lg-4">
@@ -131,6 +130,38 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
                                        placeholder="Set the label which will be displayed for the current fill percentage"
                                        [(ngModel)]="config.currentFillPercentageLabel">
                             </c8y-form-group>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="label-with-help" for="percentOrValue">Measurement is a percent or value</label>
+                                    <span class="help-icon">
+                                        <img src="{{CONST_HELP_IMAGE_FILE}}"
+                                             alt="help tooltip"
+                                             title="The measurement is provided as a percent or a value.">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <span class="calculate-remaining-volume-container">
+                                        <input type="radio" id="measurementIsAPercent"
+                                               name="measurementIsAPercent"
+                                               value="measurementIsAPercent"
+                                               [(ngModel)]="config.measurementIsAPercentOrValue"/>
+                                        <label for="measurementIsAPercente">Percent</label>
+                                    </span>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span class="calculate-fill-volume-container">
+                                        <input type="radio" id="measurementIsAValue"
+                                               name="measurementIsAValue"
+                                               value="measurementIsAValue"
+                                               [(ngModel)]="config.measurementIsAPercentOrValue"/>
+                                        <label for="measurementIsAValue">Value</label>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

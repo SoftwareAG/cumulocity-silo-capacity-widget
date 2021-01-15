@@ -61,7 +61,12 @@
                 </ng-container>
                 <ng-container *ngIf="config.debugMode">
                 <span class="measurement-value-debug-mode">
-                    <input type="number" min="0" max="100" step="25" value="25" (change)="setCurrentFillPercentage($event.target.value)"><label>{{'%'}}</label>
+                    <ng-container *ngIf="config.measurementIsAPercentOrValue === 'measurementIsAPercent'">
+                        <input type="number" min="0" max="100" step="25" value="25" (change)="setCurrentFillPercentage($event.target.value)"><label>{{'%'}}</label>
+                    </ng-container>
+                    <ng-container *ngIf="config.measurementIsAPercentOrValue === 'measurementIsAValue'">
+                        <input class="measurement-is-a-value" type="number" min="0" max="{{config.fillLevelMaximumAmount}}" step="{{(config.fillLevelMaximumAmount/100) * 25}}" value="{{(config.fillLevelMaximumAmount/100) * 25}}" (change)="setCurrentValue($event.target.value)">
+                    </ng-container>
                 </span>
                 </ng-container>
             </p>
