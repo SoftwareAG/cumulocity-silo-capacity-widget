@@ -112,6 +112,9 @@ input {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .measurement-label {
