@@ -15,8 +15,8 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
  */
-import {CoreModule, HOOK_COMPONENTS} from "@c8y/ngx-components";
-import {NgModule} from "@angular/core";
+import { CoreModule, HOOK_COMPONENTS } from "@c8y/ngx-components";
+import { NgModule } from "@angular/core";
 
 // This will import css from the styles folder (Note: will be applied globally, not scoped to the module/components)
 import '~styles/index.css';
@@ -45,9 +45,19 @@ import { SiloCapacityWidgetConfig } from "./silo-capacity-widget-config.componen
                 description: 'Displays silo capacity fill levels, foreground image, background image and thresholds',
                 component: SiloCapacityWidget,
                 configComponent: SiloCapacityWidgetConfig,
-                previewImage: require("~styles/previewImage.png")
+                previewImage: require("~styles/previewImage.png"),
+                data: {
+                    ng1: {
+                        options: {
+                            noDeviceTarget: false,
+                            noNewWidgets: false,
+                            deviceTargetNotRequired: false,
+                            groupsSelectable: true
+                        }
+                    }
+                }
             }
         }
     ],
 })
-export class SiloCapacityWidgetModule {}
+export class SiloCapacityWidgetModule { }
