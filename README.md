@@ -1,5 +1,8 @@
 ﻿# Cumulocity IoT Silo Capacity widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget/releases/download/1.1.0/silo-capacity-widget-1.1.0.zip)
 
+
+ > ### ⚠️ This project is no longer under development. Please use [cumulocity-silo-capacity-widget-plugin](https://github.com/SoftwareAG/cumulocity-silo-capacity-widget-plugin) for Application Builder >=2.x.x and Cumulocity >=1016.x.x⚠️
+
 This widget displays a configurable silo capacity graphic with fill levels, foreground image overlay, optional background image and colorized thresholds. 
 
 | ![Cylinder Fill example](./styles/previewImage1.png)  |      | ![Cylinder Fill example](./styles/previewImage2.png) |
